@@ -1,1 +1,194 @@
-# soryKavi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Heart Surprise</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    background:#111;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    flex-direction:column;
+    font-family: Arial, sans-serif;
+    color:white;
+    overflow:hidden;
+    text-align:center;
+}
+
+/* Floating Hearts */
+.floating-hearts{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    overflow:hidden;
+    z-index:0;
+}
+
+.floating-hearts span{
+    position:absolute;
+    bottom:-50px;
+    animation: floatUp linear infinite;
+}
+
+@keyframes floatUp{
+    from{
+        transform:translateY(0);
+        opacity:0.8;
+    }
+    to{
+        transform:translateY(-110vh);
+        opacity:0;
+    }
+}
+
+/* Small Heart Button */
+.heart-btn{
+    position:relative;
+    width:120px;
+    height:110px;
+    background:red;
+    transform:rotate(-45deg);
+    cursor:pointer;
+    z-index:2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    animation:pulse 1.5s infinite;
+}
+
+.heart-btn:before,
+.heart-btn:after{
+    content:"";
+    position:absolute;
+    width:120px;
+    height:110px;
+    background:red;
+    border-radius:50%;
+}
+
+.heart-btn:before{
+    top:-60px;
+    left:0;
+}
+
+.heart-btn:after{
+    left:60px;
+    top:0;
+}
+
+/* Text inside small heart */
+.heart-btn span{
+    position:absolute;
+    transform:rotate(45deg);
+    font-size:16px;
+    font-weight:bold;
+    color:white;
+}
+
+/* Pulse Animation */
+@keyframes pulse{
+    0%{ transform:scale(1) rotate(-45deg); }
+    50%{ transform:scale(1.15) rotate(-45deg); }
+    100%{ transform:scale(1) rotate(-45deg); }
+}
+
+/* Big Heart */
+.big-heart{
+    position:absolute;
+    width:220px;
+    height:200px;
+    background:red;
+    transform:rotate(-45deg);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:2;
+    animation:pop 0.6s ease forwards;
+}
+
+.big-heart:before,
+.big-heart:after{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:200px;
+    background:red;
+    border-radius:50%;
+}
+
+.big-heart:before{
+    top:-110px;
+    left:0;
+}
+
+.big-heart:after{
+    left:110px;
+    top:0;
+}
+
+/* Text inside big heart */
+.big-heart span{
+    position:absolute;
+    transform:rotate(45deg);
+    font-size:24px;
+    font-weight:bold;
+    color:white;
+}
+
+@keyframes pop{
+    0%{ transform:scale(0) rotate(-45deg); opacity:0; }
+    100%{ transform:scale(1) rotate(-45deg); opacity:1; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="floating-hearts" id="floatingHearts"></div>
+
+<div class="heart-btn" onclick="showHeart()">
+    <span>Click Kavi</span>
+</div>
+
+<div class="big-heart" id="bigHeart">
+    <span id="message">Sorry Kavi</span>
+</div>
+
+<script>
+
+/* Floating hearts */
+function createHeart(){
+    const heart = document.createElement("span");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
+    heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+    document.getElementById("floatingHearts").appendChild(heart);
+
+    setTimeout(()=> heart.remove(),8000);
+}
+setInterval(createHeart, 500);
+
+/* Show big heart */
+function showHeart(){
+    document.querySelector(".heart-btn").style.display="none";
+    const big = document.getElementById("bigHeart");
+    big.style.display="flex";
+
+    setTimeout(()=>{
+        document.getElementById("message").innerHTML="I Love You Kavi ❤️";
+    },3000);
+}
+
+</script>
+
+</body>
+</html>
